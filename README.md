@@ -5,4 +5,5 @@ The binary created from this yacc definition converts brainfuck code to a c impl
 make all
 ./brainfuck < test.bf > result.c
 gcc -o helloworld result.c
+./helloworld
 ```

@@ -1,5 +1,5 @@
 #
-# Build specifications for flex and bison
+# Build specifications for lex and yacc
 #
 
 # Build syntax
@@ -11,7 +11,7 @@ LEX  = $(filter-out $(YACC), $(patsubst %.l, %, $(wildcard [a-z]*.l)))
 # Generate all programs
 EXE  = $(LEX) $(YACC)
 
-# Build flex object files
+# Build lex object files
 OBJL = $(patsubst %, %.yy.o, $(LEX))
 
 # Build yacc object files
@@ -21,10 +21,10 @@ all:  $(EXE)
 	echo $(OBJLY)
 
 %.yy.c:  %.l
-	flex  -o$*.yy.c $*.l
+	lex  -o$*.yy.c $*.l
 
 %.tab.c %.tab.h: %.y
-	bison -d $*.y
+	yacc -d $*.y
 
 %.tab.o: %.tab.c
 	gcc -c $*.tab.c
