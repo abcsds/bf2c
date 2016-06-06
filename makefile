@@ -1,20 +1,20 @@
 #
-# Ogolny makefile do specyfikacji dla Flexa i Bisona
+# Build specifications for flex and bison
 #
 
-# Programy do wygenerowania ze specyfikacji dla Yacc'a
+# Build syntax
 YACC = $(patsubst %.y, %, $(wildcard [a-z]*.y))
 
-# Programy do wygenerowania (tylko) ze specyfikacji dla Lex'a
+# Build lexicon
 LEX  = $(filter-out $(YACC), $(patsubst %.l, %, $(wildcard [a-z]*.l)))
 
-# Wszystkie programy do wygenerowania
+# Generate all programs
 EXE  = $(LEX) $(YACC)
 
-# Kody po¶rednie skanerów zale¿nych tylko od specyfikacji skanera
+# Build flex object files
 OBJL = $(patsubst %, %.yy.o, $(LEX))
 
-# Kody po¶rednie skanerów zale¿nych od specyfikacji skanera i pliku nag³ówkowego parsera
+# Build yacc object files
 OBJLY = $(patsubst %, %.yy.o, $(YACC))
 
 all:  $(EXE)
@@ -51,3 +51,4 @@ clean:
 	rm -f *.tab.c
 	rm -f *.tab.h
 	rm -f *.o
+	rm -f result.c

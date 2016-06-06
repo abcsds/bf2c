@@ -5,7 +5,7 @@
 
 void error()
 {
-  fprintf(stdout, "Plik niepoprawny pod wzglêdem leksykalnym. Linia: %d\n", yylineno);
+  fprintf(stdout, "Grammar error. Line: %d\n", yylineno);
   exit(1);
 }
 
@@ -15,45 +15,45 @@ INT     [0-9]+
 ID      [A-Za-z][A-Za-z0-9]*
 
 %%
-">"		{
-		yylval=1;
-		return POINTER;
-		}
+">" {
+  yylval=1;
+  return POINTER;
+}
 
-"<"		{
-		yylval=-1;
-		return POINTER;
-		}
+"<" {
+  yylval=-1;
+  return POINTER;
+}
 
-"+"		{
-		yylval=1;
-		return VALUE;
-		}
+"+" {
+  yylval=1;
+  return VALUE;
+}
 
-"-"		{
-		yylval=-1;
-		return VALUE;
-		}
+"-" {
+  yylval=-1;
+  return VALUE;
+}
 
-"["		{
-		return LOOP_BEGIN;
-		}
+"[" {
+  return LOOP_BEGIN;
+}
 
-"]"		{
-		return LOOP_END;
-		}
-","		{
-		return INPUT;
-		}
+"]" {
+  return LOOP_END;
+}
+"," {
+  return INPUT;
+}
 
-"."		{
-		return OUTPUT;
-		}
+"." {
+  return OUTPUT;
+}
 
-[ \t] { /* Nic */ }
+[ \t] { /* Do nothing */ }
 
-[\n] { return yytext[0]; } 
+[\n] { return yytext[0]; }
 
-. { yylval=yytext[0]; return COMMENT; } 
+. { yylval=yytext[0]; return COMMENT; }
 
 %%
